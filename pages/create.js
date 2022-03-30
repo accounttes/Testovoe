@@ -4,22 +4,58 @@ import { addItem } from '../store/actions/items';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import A from '../components/A.js';
+import { BaseForm } from '../components/BaseForm.jsx';
+import { FeatureForm } from '../components/FeatureForm.jsx';
+import { OtherForm } from '../components/OtherForm.jsx';
 import Head from 'next/head';
 
 export default function Create() {
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
+  const [form, setForm] = useState(null);
+
+  function handleForm(param) {
+    setForm(1);
+  }
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: 'onSubmit',
+  });
 
   const onSubmit = (data) => {
-    dispatch(addItem(data));
+    const obj = {
+      id: data.id,
+      image: data.image,
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      contacts: data.contacts,
+
+      options: {
+        air_conditioner: data.air_conditioner,
+        airbags: data.airbags,
+        multimedia: data.multimedia,
+        сruise_control: data.сruise_control,
+      },
+    };
+
+    if (form === 1) {
+      obj['technical_characteristics'] = {
+        brand: data.brand,
+        model: data.model,
+        productionYear: data.productionYear,
+        body: data.body,
+        mileage: data.mileage,
+      };
+    }
     setAdded(true);
+    console.log(JSON.stringify(obj));
+    alert('В консоли вывелись JSON данные');
   }; // your form submit function which will invoke after successful validation
 
   return (
@@ -40,38 +76,34 @@ export default function Create() {
           width: '500px',
           marginLeft: '35%',
         }}>
-        <label style={{ marginLeft: '10px', height: '30px' }}>Имя</label>
+        <div>
+          <div>
+            <h2 style={{ marginBottom: '20px' }}>Базовые данные</h2>
+            <BaseForm errors={errors} register={register}></BaseForm>
+          </div>
+
+          <div>
+            <button
+              className="button"
+              type="text"
+              onClick={() => handleForm(1)}
+              style={form === 1 ? { visibility: 'hidden' } : null}>
+              Добавить технические характеристики
+            </button>
+            {form === 1 ? <FeatureForm errors={errors} register={register}></FeatureForm> : null}
+          </div>
+
+          <div style={{ marginLeft: '150px', marginTop: '20px' }}>
+            <h2>Доп. опции</h2>
+            <OtherForm errors={errors} register={register}></OtherForm>
+          </div>
+        </div>
+
         <input
-          {...register('name', {
-            required: true,
-            maxLength: 20,
-            pattern: /^[A-Za-z]+$/i,
-          })}
-          style={{ marginLeft: '10px', height: '30px' }}
-        />
-        {errors?.username?.type === 'required' && (
-          <p style={{ color: 'red', marginLeft: '150px' }}>Это поле обязательно к заполнению</p>
-        )}
-        {errors?.username?.type === 'maxLength' && (
-          <p style={{ color: 'red', marginLeft: '150px' }}>Имя не может превышать 20 символов</p>
-        )}
-        {errors?.username?.type === 'pattern' && (
-          <p style={{ color: 'red', marginLeft: '150px' }}>Только буквенные символы</p>
-        )}
-        <label style={{ marginLeft: '10px' }}>Имя пользователя</label>
-        <input
-          {...register('username', { pattern: /^[A-Za-z]+$/i })}
+          className="button"
+          type="submit"
           style={{ marginLeft: '10px', marginTop: '10px', height: '30px' }}
         />
-        {added && <p style={{ marginLeft: '10px', fontSize: '20px', color: 'green' }}>Добавлено</p>}
-        {errors?.username?.type === 'required' && (
-          <p style={{ color: 'red', marginLeft: '150px' }}>Это поле обязательно к заполнению</p>
-        )}
-        {errors?.username?.type === 'pattern' && (
-          <p style={{ color: 'red', marginLeft: '150px' }}>Только буквенные символы</p>
-        )}
-
-        <input type="submit" style={{ marginLeft: '10px', marginTop: '10px', height: '30px' }} />
       </form>
     </>
   );

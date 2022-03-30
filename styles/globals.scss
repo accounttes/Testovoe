@@ -16,3 +16,46 @@ a {
   padding: 0;
   box-sizing: border-box;
 }
+
+li {
+  list-style-type: none;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 10px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+}
+
+.button {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 10px;
+  border: none;
+  background-color: #3f51b5;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.list {
+  margin-left: auto;
+  margin-top: 10px;
+}
+
+.option {
+  margin-left: 10px;
+}
+
+.errorMessage {
+  color: red;
+  display: flex;
+  justify-content: center;
+}

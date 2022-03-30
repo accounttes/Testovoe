@@ -5,6 +5,7 @@ import Head from 'next/head';
 
 export default function List() {
   const items = useSelector(({ users }) => users.items);
+  console.log(items, 'айтемс');
 
   return (
     <>
