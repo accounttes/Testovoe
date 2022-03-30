@@ -29,7 +29,7 @@ export default function Create() {
 
   const onSubmit = (data) => {
     const obj = {
-      id: data.id,
+      id: Math.random().toString(16).slice(2),
       image: data.image,
       name: data.name,
       description: data.description,
@@ -54,6 +54,7 @@ export default function Create() {
       };
     }
     setAdded(true);
+    console.log(data);
     console.log(JSON.stringify(obj));
     alert('В консоли вывелись JSON данные');
   }; // your form submit function which will invoke after successful validation
