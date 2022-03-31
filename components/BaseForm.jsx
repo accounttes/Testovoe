@@ -8,7 +8,7 @@ export const BaseForm = ({ errors, register }) => {
         Название
         <input
           className="input"
-          placeholder=""
+          placeholder="Введите название"
           readOnly={false}
           {...register('name', {
             required: 'Поле обязательно к заполнению',
@@ -25,7 +25,7 @@ export const BaseForm = ({ errors, register }) => {
         Описание
         <input
           className="input"
-          placeholder=""
+          placeholder="Введите описание"
           readOnly={false}
           {...register('description', {
             required: 'Поле обязательно к заполнению',
@@ -44,7 +44,7 @@ export const BaseForm = ({ errors, register }) => {
         Цена
         <input
           className="input"
-          placeholder=""
+          placeholder="Введите цену"
           readOnly={false}
           {...register('price', {
             required: 'Поле обязательно к заполнению',
@@ -61,7 +61,7 @@ export const BaseForm = ({ errors, register }) => {
         Фото
         <input
           className="input"
-          placeholder=""
+          placeholder="Введите ссылку на изображение"
           readOnly={false}
           {...register('image', {
             required: 'Поле обязательно к заполнению',
@@ -78,7 +78,7 @@ export const BaseForm = ({ errors, register }) => {
         Контакты
         <input
           className="input"
-          placeholder=""
+          placeholder="Введите контакты"
           readOnly={false}
           {...register('contacts', {
             required: 'Поле обязательно к заполнению',

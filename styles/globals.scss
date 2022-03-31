@@ -24,12 +24,15 @@ li {
 .label {
   display: flex;
   flex-direction: column;
+  animation: ani 0.3s forwards;
 }
 
 .input {
   padding: 10px;
   border: 0;
   box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .button {
@@ -43,6 +46,11 @@ li {
   border-radius: 5px;
   width: 100%;
   margin-top: 10px;
+  cursor: pointer;
+
+  &__option {
+    background: lightcoral;
+  }
 }
 
 .list {
@@ -54,8 +62,40 @@ li {
   margin-left: 10px;
 }
 
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 500px;
+  margin-left: 20vw;
+}
+
 .errorMessage {
   color: red;
   display: flex;
   justify-content: center;
+}
+
+.delete__btn {
+  border: 0;
+  cursor: pointer;
+  color: red;
+  width: 7vw;
+  height: 4vh;
+  margin-top: 5px;
+  border-radius: 10px;
+  background: white;
+}
+
+.create__container {
+  height: 200vh;
+}
+
+@keyframes ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

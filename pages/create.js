@@ -1,3 +1,4 @@
+import React from 'react';
 import { dispatch } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../store/actions/items';
@@ -15,7 +16,7 @@ export default function Create() {
   const [form, setForm] = useState(null);
 
   function handleForm(param) {
-    setForm(1);
+    param ? setForm(param) : setForm(false);
   }
 
   const {
@@ -35,17 +36,11 @@ export default function Create() {
       description: data.description,
       price: data.price,
       contacts: data.contacts,
-
-      options: {
-        air_conditioner: data.air_conditioner,
-        airbags: data.airbags,
-        multimedia: data.multimedia,
-        сruise_control: data.сruise_control,
-      },
     };
 
-    if (form === 1) {
+    if (form) {
       obj['technical_characteristics'] = {
+        car__id: Math.random().toString(16).slice(2),
         brand: data.brand,
         model: data.model,
         productionYear: data.productionYear,
@@ -53,59 +48,79 @@ export default function Create() {
         mileage: data.mileage,
       };
     }
+
+    const optionsObj = {
+      air_conditioner: data.air_conditioner || '',
+      airbags: data.airbags || '',
+      multimedia: data.multimedia || '',
+      сruise_control: data.сruise_control || '',
+    };
+
+    for (let key in optionsObj) {
+      optionsObj[key] === '' ? delete optionsObj[key] : null;
+    }
+
+    if (!(Object.keys(optionsObj).length == 0)) {
+      obj.options = optionsObj;
+    }
+
     setAdded(true);
-    console.log(data);
-    console.log(JSON.stringify(obj));
-    alert('В консоли вывелись JSON данные');
+    alert('Пошел POST запрос');
+    console.log(obj);
+
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(JSON.stringify(data)));
   }; // your form submit function which will invoke after successful validation
 
   return (
     <>
-      <Head>
-        <meta keywords="test next.js addUser"></meta>
-        <title>Добавление пользователя</title>
-      </Head>
+      <div className={form ? 'create__container' : ''}>
+        <Head>
+          <meta keywords="test next.js addUser"></meta>
+          <title>Добавление пользователя</title>
+        </Head>
 
-      <A href="/" text="Назад" />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{
-          display: 'flex',
-          marginTop: '100px',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          width: '500px',
-          marginLeft: '35%',
-        }}>
-        <div>
+        <A href="/" text="Назад" />
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
           <div>
-            <h2 style={{ marginBottom: '20px' }}>Базовые данные</h2>
-            <BaseForm errors={errors} register={register}></BaseForm>
-          </div>
+            <div>
+              <h2 style={{ marginBottom: '20px' }}>Базовые данные</h2>
+              <BaseForm errors={errors} register={register}></BaseForm>
+            </div>
 
-          <div>
-            <button
-              className="button"
-              type="text"
-              onClick={() => handleForm(1)}
-              style={form === 1 ? { visibility: 'hidden' } : null}>
-              Добавить технические характеристики
-            </button>
-            {form === 1 ? <FeatureForm errors={errors} register={register}></FeatureForm> : null}
-          </div>
+            <div>
+              {!form && (
+                <button className="button" type="button" onClick={() => handleForm(true)}>
+                  Добавить технические характеристики
+                </button>
+              )}
+              {form && (
+                <button
+                  className="button"
+                  style={{ background: '#ff033e' }}
+                  type="button"
+                  onClick={() => handleForm(false)}>
+                  Отменить добавление технических характеристик
+                </button>
+              )}
+              {form && <FeatureForm errors={errors} register={register}></FeatureForm>}
+            </div>
 
-          <div style={{ marginLeft: '150px', marginTop: '20px' }}>
-            <h2>Доп. опции</h2>
-            <OtherForm errors={errors} register={register}></OtherForm>
+            <div style={{ marginTop: '20px' }}>
+              <h2>Доп. опции</h2>
+              <OtherForm errors={errors} register={register}></OtherForm>
+            </div>
+            <input className="button" type="submit" />
           </div>
-        </div>
-
-        <input
-          className="button"
-          type="submit"
-          style={{ marginLeft: '10px', marginTop: '10px', height: '30px' }}
-        />
-      </form>
+        </form>
+      </div>
     </>
   );
 }

@@ -14,10 +14,17 @@ export default function Search({ users }) {
 
   function handleValue(e) {
     setValue(e.target.value);
-    dispatch(searchItem(e.target.value));
+    console.log(e);
 
-    if (e.target.value === '') {
-      alert('Вернитесь назад)');
+    if (items.length === 0) {
+      const newContacts = users.filter(
+        (item) =>
+          item.name.toLowerCase().includes(e.target.value) ||
+          item.username.toLowerCase().includes(e.target.value),
+      );
+      dispatch(searchItem(newContacts));
+    } else {
+      e.target.value === '' ? dispatch(searchItem(users)) : dispatch(searchItem(e.target.value));
     }
   }
 
@@ -53,4 +60,13 @@ export default function Search({ users }) {
       </Table>
     </>
   );
+}
+
+export async function getStaticProps(context) {
+  const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
+  const users = await response.json();
+
+  return {
+    props: { users }, // will be passed to the page component as props
+  };
 }

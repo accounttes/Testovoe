@@ -25,11 +25,15 @@ export const items = (state = initialState, action) => {
       }
 
     case 'SEARCH_ITEM':
-      const newContacts = state.items.filter(
-        (item) =>
-          item.name.toLowerCase().includes(action.payload) ||
-          item.username.toLowerCase().includes(action.payload),
-      );
+      if (typeof action.payload === 'object') {
+        return { ...state, items: action.payload };
+      } else {
+        const newContacts = state.items.filter(
+          (item) =>
+            item.name.toLowerCase().includes(action.payload) ||
+            item.username.toLowerCase().includes(action.payload),
+        );
+      }
 
       return { ...state, items: newContacts };
 
