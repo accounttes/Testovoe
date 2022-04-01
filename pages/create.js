@@ -55,8 +55,12 @@ export default function Create() {
       optionsObj[key] = data[key];
     }
 
-    if (optionsObj[0] !== '') {
-      obj['options'] = optionsObj;
+    for (let key in optionsObj) {
+      if (optionsObj[key] === '') {
+        delete optionsObj[key];
+      } else {
+        obj['options'] = optionsObj;
+      }
     }
 
     setAdded(true);
