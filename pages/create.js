@@ -16,6 +16,8 @@ export default function Create() {
   const [form, setForm] = useState(null);
   const [currentStep, setCurrentStep] = useState([0]);
 
+  const [optionNames, setOptionNames] = useState([]);
+
   function handleForm(param) {
     param ? setForm(param) : setForm(false);
   }
@@ -49,10 +51,18 @@ export default function Create() {
       };
     }
 
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setOptionNames(data);
+      });
+
     const optionsObj = {};
 
     for (let key in currentStep) {
-      optionsObj[key] = data[key];
+      optionsObj[optionNames[key].title] = data[key];
     }
 
     for (let key in optionsObj) {
@@ -115,6 +125,7 @@ export default function Create() {
             <div style={{ marginTop: '20px' }}>
               <h2>Доп. опции</h2>
               <OtherForm
+                optionNames={optionNames}
                 errors={errors}
                 register={register}
                 currentStep={currentStep}
