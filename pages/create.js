@@ -55,7 +55,9 @@ export default function Create() {
       optionsObj[key] = data[key];
     }
 
-    obj['options'] = optionsObj;
+    if (optionsObj[0] !== '') {
+      obj['options'] = optionsObj;
+    }
 
     setAdded(true);
     alert('Пошел POST запрос');
