@@ -52,7 +52,7 @@ export default function Create() {
     const optionsObj = {};
 
     for (let key in currentStep) {
-      optionsObj[key] = 'option__name';
+      optionsObj[key] = data[key];
     }
 
     for (let key in optionsObj) {
