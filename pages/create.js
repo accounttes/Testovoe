@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { dispatch } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../store/actions/items';
@@ -17,6 +17,16 @@ export default function Create() {
   const [currentStep, setCurrentStep] = useState([0]);
 
   const [optionNames, setOptionNames] = useState([]);
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setOptionNames(data);
+      });
+  }, []);
 
   function handleForm(param) {
     param ? setForm(param) : setForm(false);
@@ -50,14 +60,6 @@ export default function Create() {
         mileage: data.mileage,
       };
     }
-
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setOptionNames(data);
-      });
 
     const optionsObj = {};
 
