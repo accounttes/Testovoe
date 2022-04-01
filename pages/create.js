@@ -14,6 +14,7 @@ export default function Create() {
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
   const [form, setForm] = useState(null);
+  const [currentStep, setCurrentStep] = useState([0]);
 
   function handleForm(param) {
     param ? setForm(param) : setForm(false);
@@ -22,7 +23,6 @@ export default function Create() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     mode: 'onSubmit',
@@ -49,20 +49,13 @@ export default function Create() {
       };
     }
 
-    const optionsObj = {
-      air_conditioner: data.air_conditioner || '',
-      airbags: data.airbags || '',
-      multimedia: data.multimedia || '',
-      сruise_control: data.сruise_control || '',
-    };
+    const optionsObj = {};
 
-    for (let key in optionsObj) {
-      optionsObj[key] === '' ? delete optionsObj[key] : null;
+    for (let key in currentStep) {
+      optionsObj[key] = data[key];
     }
 
-    if (!(Object.keys(optionsObj).length == 0)) {
-      obj.options = optionsObj;
-    }
+    obj['options'] = optionsObj;
 
     setAdded(true);
     alert('Пошел POST запрос');
@@ -115,7 +108,11 @@ export default function Create() {
 
             <div style={{ marginTop: '20px' }}>
               <h2>Доп. опции</h2>
-              <OtherForm errors={errors} register={register}></OtherForm>
+              <OtherForm
+                errors={errors}
+                register={register}
+                currentStep={currentStep}
+                setCurrentStep={setCurrentStep}></OtherForm>
             </div>
             <input className="button" type="submit" />
           </div>
