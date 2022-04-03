@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import axios from 'axios';
 import { dispatch } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../store/actions/items';
@@ -7,25 +8,28 @@ import { useState } from 'react';
 import A from '../components/A.js';
 import { BaseForm } from '../components/BaseForm.jsx';
 import { FeatureForm } from '../components/FeatureForm.jsx';
-import { OtherForm } from '../components/OtherForm.jsx';
+import { OtherForm } from '../components/OtherForm/OtherForm.jsx';
 import Head from 'next/head';
+import { dataFormation } from '../decompose/dataFormation';
 
 export default function Create() {
+  const axios = require('axios').default;
+
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
   const [form, setForm] = useState(null);
-  const [currentStep, setCurrentStep] = useState([0]);
 
   const [optionNames, setOptionNames] = useState([]);
 
+  const [options, setOptions] = useState([]);
+
+  const [send, setSend] = useState(false);
+
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setOptionNames(data);
-      });
+    axios
+      .get('https://jsonplaceholder.typicode.com/todos')
+      .then((resp) => setOptionNames(resp.data))
+      .catch((err) => console.log(err));
   }, []);
 
   function handleForm(param) {
@@ -41,53 +45,19 @@ export default function Create() {
   });
 
   const onSubmit = (data) => {
-    const obj = {
-      id: Math.random().toString(16).slice(2),
-      image: data.image,
-      name: data.name,
-      description: data.description,
-      price: data.price,
-      contacts: data.contacts,
-    };
-
-    if (form) {
-      obj['technical_characteristics'] = {
-        car__id: Math.random().toString(16).slice(2),
-        brand: data.brand,
-        model: data.model,
-        productionYear: data.productionYear,
-        body: data.body,
-        mileage: data.mileage,
-      };
-    }
-
-    const optionsObj = {};
-
-    for (let key in currentStep) {
-      optionsObj[optionNames[key].title] = data[key];
-    }
-
-    for (let key in optionsObj) {
-      if (optionsObj[key] === '') {
-        delete optionsObj[key];
-      } else {
-        obj['options'] = optionsObj;
-      }
-    }
+    dataFormation(data, form, options, optionNames);
 
     setAdded(true);
     alert('Пошел POST запрос');
-    console.log(obj);
 
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
+    axios({
+      method: 'post',
+      url: 'https://jsonplaceholder.typicode.com/posts',
+      data: JSON.stringify(data),
       headers: {
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(obj),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(JSON.stringify(data)));
+    }).then(({ data }) => console.log(data));
   }; // your form submit function which will invoke after successful validation
 
   return (
@@ -125,16 +95,19 @@ export default function Create() {
             </div>
 
             <div style={{ marginTop: '20px' }}>
-              <h2>Доп. опции</h2>
+              <h2 style={{ marginLeft: '20px' }}>Доп. опции</h2>
+
               <OtherForm
                 optionNames={optionNames}
                 errors={errors}
                 register={register}
-                currentStep={currentStep}
-                setCurrentStep={setCurrentStep}></OtherForm>
+                options={options}
+                setOptions={setOptions}
+                send={send}
+              />
             </div>
-            <input className="button" type="submit" />
           </div>
+          <input className="button" type="submit" onClick={() => setSend(!send)} />
         </form>
       </div>
     </>

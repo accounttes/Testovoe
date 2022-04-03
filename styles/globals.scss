@@ -35,6 +35,11 @@ li {
   margin-bottom: 5px;
 }
 
+.dynamicInput {
+  display: flex;
+  flex-direction: column;
+}
+
 .button {
   appearance: none;
   -webkit-appearance: none;
