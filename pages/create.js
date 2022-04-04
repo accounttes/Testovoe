@@ -10,6 +10,7 @@ import { BaseForm } from '../components/BaseForm.jsx';
 import { FeatureForm } from '../components/FeatureForm.jsx';
 import { OtherForm } from '../components/OtherForm/OtherForm.jsx';
 import Head from 'next/head';
+import { Button } from 'react-bootstrap';
 import { dataFormation } from '../decompose/dataFormation';
 
 export default function Create() {
@@ -78,18 +79,22 @@ export default function Create() {
 
             <div>
               {!form && (
-                <button className="button" type="button" onClick={() => handleForm(true)}>
+                <Button
+                  className="button"
+                  type="button"
+                  onClick={() => handleForm(true)}
+                  variant="outline-primary">
                   Добавить технические характеристики
-                </button>
+                </Button>
               )}
               {form && (
-                <button
+                <Button
                   className="button"
                   style={{ background: '#ff033e' }}
                   type="button"
                   onClick={() => handleForm(false)}>
                   Отменить добавление технических характеристик
-                </button>
+                </Button>
               )}
               {form && <FeatureForm errors={errors} register={register}></FeatureForm>}
             </div>

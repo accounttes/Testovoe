@@ -12,20 +12,14 @@ export const dataFormation = (data, form, options, optionNames) => {
       body: data.body,
       mileage: data.mileage,
     };
-
-    delete data.brand;
-    delete data.model;
-    delete data.productionYear;
-    delete data.body;
-    delete data.mileage;
-  } else {
-    delete data.car__id;
-    delete data.brand;
-    delete data.model;
-    delete data.productionYear;
-    delete data.body;
-    delete data.mileage;
   }
+
+  delete data.car__id;
+  delete data.brand;
+  delete data.model;
+  delete data.productionYear;
+  delete data.body;
+  delete data.mileage;
 
   data['options'] = {};
 
