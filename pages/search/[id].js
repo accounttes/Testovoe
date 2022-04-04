@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { A } from '../../components/A';
 
 export default function Search() {
-  const items = useSelector(({ users }) => users.items);
+  const items = useTypedSelector((state) => state.users.items);
   const { query } = useRouter();
 
   const currUser = items.filter((item, index) => {
