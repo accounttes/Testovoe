@@ -58,6 +58,10 @@ export default function Create(): React.ReactElement {
     mode: 'onSubmit',
   });
 
+  function saveFormData(e: any) {
+    localStorage.setItem(e.target.name, e.target.value);
+  }
+
   const onSubmit = (data: DataInterface) => {
     const file: any = data.image[0];
 
@@ -90,7 +94,10 @@ export default function Create(): React.ReactElement {
         </Head>
 
         <A href="/" text="Назад" />
-        <form onSubmit={handleSubmit(onSubmit as any)} className="form">
+        <form
+          onSubmit={handleSubmit(onSubmit as any)}
+          onChange={(e) => saveFormData(e)}
+          className="form">
           <div>
             <div>
               <h2 style={{ marginBottom: '20px' }}>Базовые данные</h2>
