@@ -36,11 +36,14 @@ export interface DataInterface {
 
 export const dataFormation = (
   data: DataInterface,
+  base64: string,
   form: boolean,
   options: Array<OptionInterface>,
   optionNames: any[],
 ) => {
   data['id'] = Math.random().toString(16).slice(2);
+
+  data['image'] = base64;
 
   if (form) {
     data['technical_characteristics'] = {

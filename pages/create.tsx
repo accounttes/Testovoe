@@ -34,8 +34,6 @@ export default function Create(): React.ReactElement {
   const [options, setOptions] = useState<OptionInterface[]>([]);
   const [send, setSend] = useState(false);
 
-  const [base64, setBase24] = useState('');
-
   interface Response<T> {
     status: string;
     data: T;
@@ -65,15 +63,13 @@ export default function Create(): React.ReactElement {
 
     const myReader: any = new FileReader();
     myReader.onloadend = (e: any) => {
-      setBase24(myReader.result.toString());
+      dataFormation(data, myReader.result.toString(), form, options, optionNames);
     };
     myReader.readAsDataURL(file);
 
-    data['image'] = base64;
-    dataFormation(data, form, options, optionNames);
-
     setAdded(true);
     alert('Пошел POST запрос');
+    console.log(data, 'Сформированный data');
 
     axios({
       method: 'post',
