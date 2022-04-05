@@ -20,7 +20,7 @@ export default function Search(): React.ReactElement {
         <A href="/" text="Назад" />
         <ListGroup>
           {items &&
-            items.map((item: any, id: any) => (
+            items.map((item, id) => (
               <ListGroup.Item key={id}>
                 <A href={`/search/${item.id}`} text={`Пользователь ${item.id}`} key={id} />
               </ListGroup.Item>

@@ -20,22 +20,22 @@ interface TechnicalInterface {
 export interface DataInterface {
   contacts: string;
   description: string;
-  id: number;
+  id: string;
   image: string;
   name: string;
   price: string;
   technical_characteristics?: TechnicalInterface;
-  options?: Array<OptionInterface>;
-  body?: string;
+  options?: any;
   brand?: string;
-  car__id?: string;
-  mileage?: string;
   model?: string;
   productionYear?: string;
+  body?: string;
+  mileage?: string;
+  car__id?: string;
 }
 
 export const dataFormation = (
-  data: any,
+  data: DataInterface,
   form: boolean,
   options: Array<OptionInterface>,
   optionNames: Array<OptionNameInterface>,
@@ -60,20 +60,20 @@ export const dataFormation = (
   delete data.body;
   delete data.mileage;
 
-  data['options'] = {};
+  data['options'] = Object.create({});
 
   options &&
     options.map((option, index) => {
-      data.options[optionNames[index].title] = option.name;
+      data!.options![optionNames[index].title as any] = option.name;
     });
 
   for (let key in data.options) {
-    if (data.options[key] === '') {
-      delete data.options[key];
+    if (data.options[key as any] === '') {
+      delete data.options[key as any];
     }
   }
 
-  if (Object.keys(data['options']).length == 0) {
+  if (Object.keys(data['options'] as any).length == 0) {
     delete data['options'];
   }
 

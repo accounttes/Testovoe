@@ -39,7 +39,7 @@ export const OtherForm: React.FC<OtherFormProps> = ({
     name: 'fieldArray',
   });
 
-  const optionsData = useWatch({
+  const optionsData: Array<OptionInterface> = useWatch({
     control,
     name: 'fieldArray', // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
   });
@@ -51,7 +51,7 @@ export const OtherForm: React.FC<OtherFormProps> = ({
   return (
     <>
       {optionsData &&
-        optionsData.map((field: any, index: any) => {
+        optionsData.map((field, index) => {
           return (
             <input
               onInput={() => sendOptionsData()}

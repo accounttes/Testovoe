@@ -1,3 +1,4 @@
+import { ItemInterface } from '../../pages/delete';
 import { ItemAction, ItemsActionTypes } from '../../types/items';
 
 const initialState = {

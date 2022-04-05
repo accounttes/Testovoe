@@ -7,6 +7,7 @@ import Head from 'next/head';
 import { useTypedSelector } from '../store/hooks/useTypesSelector';
 import { ItemInterface } from './delete';
 import { ItemsState } from '../types/items';
+import { Context } from 'next-redux-wrapper';
 
 interface IUsers {
   users: Array<ItemInterface>;
@@ -22,7 +23,7 @@ export default function Update({ users }: IUsers): React.ReactElement {
 
     if (items.length === 0) {
       const newContacts = users.filter(
-        (item: any) =>
+        (item) =>
           item.name.toLowerCase().includes(e.target.value) ||
           item.username.toLowerCase().includes(e.target.value),
       );
@@ -54,7 +55,7 @@ export default function Update({ users }: IUsers): React.ReactElement {
         </thead>
         <tbody>
           {items &&
-            items.map((item: any, index: any) => (
+            items.map((item, index) => (
               <tr key={index}>
                 <td>{item.name}</td>
                 <td>{item.username}</td>
@@ -66,7 +67,7 @@ export default function Update({ users }: IUsers): React.ReactElement {
   );
 }
 
-export async function getStaticProps(context: any) {
+export async function getStaticProps(context: Context) {
   const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
   const users = await response.json();
 

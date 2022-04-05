@@ -1,7 +1,8 @@
-import { combineReducers } from 'redux';
+import { combineReducers, AnyAction } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 
 import { items } from './items';
+import { ItemsState } from '../../types/items';
 
 const rootReducer = combineReducers({
   users: items,

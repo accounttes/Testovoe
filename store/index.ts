@@ -10,7 +10,8 @@ if (typeof window !== 'undefined') {
   composeEnhancers = (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 }
 
-const makeStore = (context: Context) => createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const makeStore = (context: Context) =>
+  createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 // export an assembled wrapper
 export const wrapper = createWrapper(makeStore, { debug: true });

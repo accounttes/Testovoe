@@ -9,8 +9,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTypedSelector } from '../store/hooks/useTypesSelector';
 import { ItemsState } from '../types/items';
 import { ItemInterface } from './delete';
+import { Context } from 'next-redux-wrapper';
 
 const Home: NextPage = ({ users }: any): React.ReactElement => {
+
   const items = useTypedSelector((state: ItemsState) => state.users.items);
 
   const dispatch = useDispatch();
@@ -78,7 +80,7 @@ const Home: NextPage = ({ users }: any): React.ReactElement => {
   );
 };
 
-export async function getStaticProps(context: any) {
+export async function getStaticProps(context: Context) {
   const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
   const users = await response.json();
 

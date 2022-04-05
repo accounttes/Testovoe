@@ -24,8 +24,8 @@ export default function Delete(): React.ReactElement {
 
   const dispatch = useDispatch();
 
-  function handleItems(e: any) {
-    dispatch(removeItem(Number(e.target.dataset.id)));
+  function handleItems(e: React.MouseEvent<HTMLButtonElement>) {
+    dispatch(removeItem(Number((e.target as HTMLMediaElement).dataset.id)));
   }
 
   return (
@@ -38,10 +38,9 @@ export default function Delete(): React.ReactElement {
       <A href="/" text="Назад" />
       <ListGroup>
         {items &&
-          items.map((item: any, index: any) => (
+          items.map((item, index) => (
             <ListGroup.Item key={index}>
               {item.username}
-
               <Button
                 onClick={handleItems}
                 data-id={item.id}

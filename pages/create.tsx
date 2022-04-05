@@ -58,7 +58,7 @@ export default function Create(): React.ReactElement {
     mode: 'onSubmit',
   });
 
-  const onSubmit = (data: any): void => {
+  const onSubmit = (data: DataInterface) => {
     dataFormation(data, form, options, optionNames);
 
     setAdded(true);
@@ -83,7 +83,7 @@ export default function Create(): React.ReactElement {
         </Head>
 
         <A href="/" text="Назад" />
-        <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <form onSubmit={handleSubmit(onSubmit as any)} className="form">
           <div>
             <div>
               <h2 style={{ marginBottom: '20px' }}>Базовые данные</h2>

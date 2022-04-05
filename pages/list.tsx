@@ -4,9 +4,10 @@ import A from '../components/A';
 import Head from 'next/head';
 import { useTypedSelector } from '../store/hooks/useTypesSelector';
 import { ItemsState } from '../types/items';
+import { ItemInterface } from './delete';
 
 export default function List(): React.ReactElement {
-  const items: Array<ItemsState> = useTypedSelector((state: ItemsState) => state.users.items);
+  const items: Array<ItemInterface> = useTypedSelector((state: ItemsState) => state.users.items);
 
   return (
     <>
@@ -25,7 +26,7 @@ export default function List(): React.ReactElement {
         </thead>
         <tbody>
           {items &&
-            items.map((item: any, index: any) => (
+            items.map((item, index) => (
               <tr key={index}>
                 <td>{item.name}</td>
                 <td>{item.username}</td>
