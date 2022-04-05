@@ -10,9 +10,9 @@ import { FeatureForm } from '../components/FeatureForm';
 import { OtherForm } from '../components/OtherForm/OtherForm';
 import Head from 'next/head';
 import { Button } from 'react-bootstrap';
-import { dataFormation, OptionNameInterface } from '../decompose/dataFormation';
+import { dataFormation, DataInterface, OptionNameInterface } from '../decompose/dataFormation';
 import { OptionInterface } from '../components/OtherForm/OtherForm';
-import { DataInterface } from '../decompose/dataFormation';
+// import { DataInterface } from '../decompose/dataFormation';
 
 interface IData {
   data: {
@@ -33,6 +33,8 @@ export default function Create(): React.ReactElement {
   const [optionNames, setOptionNames] = useState<OptionNameInterface[]>([]);
   const [options, setOptions] = useState<OptionInterface[]>([]);
   const [send, setSend] = useState(false);
+
+  const [base64, setBase24] = useState('');
 
   interface Response<T> {
     status: string;
@@ -59,6 +61,15 @@ export default function Create(): React.ReactElement {
   });
 
   const onSubmit = (data: DataInterface) => {
+    const file: any = data.image[0];
+
+    const myReader: any = new FileReader();
+    myReader.onloadend = (e: any) => {
+      setBase24(myReader.result.toString());
+    };
+    myReader.readAsDataURL(file);
+
+    data['image'] = base64;
     dataFormation(data, form, options, optionNames);
 
     setAdded(true);

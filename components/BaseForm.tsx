@@ -81,13 +81,11 @@ export const BaseForm: React.FC<BaseFormProps> = ({
       <label className="label">
         Фото
         <input
-          className="input"
-          placeholder="Введите ссылку на изображение"
-          readOnly={false}
+          type="file"
+          accept="image/png, image/gif, image/jpeg, image/jpg"
           {...register('image', {
-            required: 'Поле обязательно к заполнению',
-          })}
-        />
+            required: 'Выберите фото',
+          })}></input>
       </label>
       <div>
         {errors?.image && (

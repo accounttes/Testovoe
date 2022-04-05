@@ -38,8 +38,8 @@ export const dataFormation = (
   data: DataInterface,
   form: boolean,
   options: Array<OptionInterface>,
-  optionNames: Array<OptionNameInterface>,
-): DataInterface => {
+  optionNames: any[],
+) => {
   data['id'] = Math.random().toString(16).slice(2);
 
   if (form) {
@@ -64,16 +64,16 @@ export const dataFormation = (
 
   options &&
     options.map((option, index) => {
-      data!.options![optionNames[index].title as any] = option.name;
+      data.options[optionNames[index].title] = option.name;
     });
 
   for (let key in data.options) {
-    if (data.options[key as any] === '') {
-      delete data.options[key as any];
+    if (data.options[key] === '') {
+      delete data.options[key];
     }
   }
 
-  if (Object.keys(data['options'] as any).length == 0) {
+  if (Object.keys(data['options']).length == 0) {
     delete data['options'];
   }
 
