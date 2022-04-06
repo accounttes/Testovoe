@@ -12,7 +12,7 @@ import Head from 'next/head';
 import { Button } from 'react-bootstrap';
 import { dataFormation, DataInterface, OptionNameInterface } from '../decompose/dataFormation';
 import { OptionInterface } from '../components/OtherForm/OtherForm';
-// import { DataInterface } from '../decompose/dataFormation';
+
 
 interface IData {
   data: {
@@ -33,18 +33,27 @@ export default function Create(): React.ReactElement {
   const [optionNames, setOptionNames] = useState<OptionNameInterface[]>([]);
   const [options, setOptions] = useState<OptionInterface[]>([]);
   const [send, setSend] = useState(false);
+  const [first, setfirst] = React.useState<any>('{}');
+  const dataL = JSON.parse(first);
+
+  React.useEffect(() => {
+    setfirst(localStorage.getItem('data'));
+  }, [dataL]);
+
+  React.useEffect(() => {
+    for (let key in dataL) {
+      if (key === 'image') {
+        continue;
+      }
+      setValue(key, dataL[key])
+    }
+  }, [first]);
+
 
   interface Response<T> {
     status: string;
     data: T;
   }
-
-  useEffect(() => {
-    axios
-      .get('https://jsonplaceholder.typicode.com/todos')
-      .then((resp: Response<Array<OptionNameInterface>>) => setOptionNames(resp.data))
-      .catch((err: Error) => console.log(err));
-  }, []);
 
   function handleForm(param: boolean): void {
     param ? setForm(param) : setForm(false);
@@ -54,13 +63,17 @@ export default function Create(): React.ReactElement {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     mode: 'onSubmit',
   });
 
-  function saveFormData(e: any) {
-    localStorage.setItem(e.target.name, e.target.value);
-  }
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/items')
+      .then((resp: Response<Array<OptionNameInterface>>) => setOptionNames(resp.data))
+      .catch((err: Error) => console.log(err));
+  }, []);
 
   const onSubmit = (data: DataInterface) => {
     const file: any = data.image[0];
@@ -68,21 +81,25 @@ export default function Create(): React.ReactElement {
     const myReader: any = new FileReader();
     myReader.onloadend = (e: any) => {
       dataFormation(data, myReader.result.toString(), form, options, optionNames);
+      localStorage.setItem('data', JSON.stringify(data));
+      dispatch(addItem(data))
+
     };
     myReader.readAsDataURL(file);
 
     setAdded(true);
+    console.log(data)
     alert('Пошел POST запрос');
-    console.log(data, 'Сформированный data');
 
-    axios({
-      method: 'post',
-      url: 'https://jsonplaceholder.typicode.com/posts',
-      data: JSON.stringify(data),
-      headers: {
-        'Content-type': 'application/json',
-      },
-    }).then(({ data }: IData) => console.log(data));
+
+    // axios({
+    //   method: 'post',
+    //   url: 'https://jsonplaceholder.typicode.com/posts',
+    //   data: JSON.stringify(data),
+    //   headers: {
+    //     'Content-type': 'application/json',
+    //   },
+    // }).then(({ data }: IData) => console.log('Ответ от сервера', data));
   }; // your form submit function which will invoke after successful validation
 
   return (
@@ -92,12 +109,9 @@ export default function Create(): React.ReactElement {
           <meta></meta>
           <title>Добавление пользователя</title>
         </Head>
-
+        
         <A href="/" text="Назад" />
-        <form
-          onSubmit={handleSubmit(onSubmit as any)}
-          onChange={(e) => saveFormData(e)}
-          className="form">
+        <form onSubmit={handleSubmit(onSubmit as any)} className="form">
           <div>
             <div>
               <h2 style={{ marginBottom: '20px' }}>Базовые данные</h2>

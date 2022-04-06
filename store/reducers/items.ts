@@ -1,5 +1,5 @@
-import { ItemInterface } from '../../pages/delete';
-import { ItemAction, ItemsActionTypes } from '../../types/items';
+import { ItemAction, ItemsActionTypes, ItemsState } from "../../types/items";
+
 
 const initialState = {
   items: [],
@@ -21,24 +21,48 @@ export const items = (state = initialState, action: ItemAction) => {
       return { ...state, items: newItems };
 
     case ItemsActionTypes.REMOVE__ITEM:
-      const newUsers = state.items.filter((item: any) => item.id !== action.payload);
+      const newUsers = state.items.filter(
+        (item: any) => item.id !== action.payload
+      );
 
       if (state.items.length !== 1) {
         return { ...state, items: newUsers };
       }
 
-    case ItemsActionTypes.SEARCH__ITEM:
-      if (typeof action.payload === 'object') {
-        return { ...state, items: action.payload };
-      } else {
-        const newContacts = state.items.filter(
-          (item: any) =>
-            item.name.toLowerCase().includes(action.payload) ||
-            item.username.toLowerCase().includes(action.payload),
-        );
+    case ItemsActionTypes.FILTER__ITEM:
+      const data = action.payload;
+      const filteredBrand = state.items.filter((item: any) =>
+        item.brand.includes(data.brand)
+      );
+      const filteredModel = filteredBrand.filter((item: any) =>
+        item.model.includes(data.model)
+      );
 
-        return { ...state, items: newContacts };
-      }
+      const filteredYear = filteredModel.filter((item: any) =>
+        item.year.includes(data.year)
+      );
+
+      const filteredBody = filteredModel.filter((item: any) =>
+        item.body.includes(data.body)
+      );
+
+      const filteredMileageFrom = filteredBody.filter((item: any) =>
+        Number(item.mileage) >= Number(data.mileage_from)
+      );
+
+      const filteredMileageTo = filteredMileageFrom.filter((item: any) =>
+        Number(item.mileage) <= Number(data.mileage_to)
+      );
+
+      const filteredPriceFrom = filteredMileageTo.filter((item: any) =>
+        Number(item.price) >= Number(data.price_from)
+      );
+
+      const filteredPriceTo = filteredPriceFrom.filter((item: any) =>
+        Number(item.price) <= Number(data.price_to)
+      );
+      
+      return {...state, items: filteredPriceTo};
 
     default:
       return state;

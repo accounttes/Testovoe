@@ -1,7 +1,7 @@
 import { ItemsActionTypes } from '../../types/items';
 import { ItemInterface } from '../../pages/delete'
 
-export const setItems = (users: Array<ItemInterface>) => ({
+export const setItems = (users: Array<any>) => ({
   type: ItemsActionTypes.SET_ITEMS,
   payload: users,
 });
@@ -16,7 +16,7 @@ export const removeItem = (id: number) => ({
   payload: id,
 });
 
-export const searchItem = (value: string | any[]) => ({
-  type: ItemsActionTypes.SEARCH__ITEM,
-  payload: value,
+export const filterItem= (data: any) => ({
+  type: ItemsActionTypes.FILTER__ITEM,
+  payload: data,
 });

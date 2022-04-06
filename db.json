@@ -1,0 +1,93 @@
+{
+  "items": [
+    {
+      "brand": "AUDI",
+      "model": "TT",
+      "year": "2022-01-01",
+      "body": "coupe",
+      "mileage": "100000",
+      "price": "5000000"
+
+    },
+    {
+      "brand": "AUDI",
+      "model": "ALLROAD",
+      "year": "2022-06-13",
+      "body": "coupe",
+      "mileage": "50000",
+      "price": "5000000"
+    },
+    {
+      "brand": "AUDI",
+      "model": "ALLROAD",
+      "year": "2022-06-13",
+      "body": "suv",
+      "mileage": "60000",
+      "price": "70000"
+    },
+    {
+      "brand": "AUDI",
+      "model": "ALLROAD",
+      "year": "2022-06-13",
+      "body": "suv",
+      "mileage": "76888",
+      "price": "80000"
+    },
+    {
+      "brand": "AUDI",
+      "model": "ALLROAD",
+      "year": "2022-06-13",
+      "body": "suv",
+      "mileage": "98777",
+      "price": "90000"
+    },
+    {
+      "brand": "AUDI",
+      "model": "ALLROAD",
+      "year": "2022-06-13",
+      "body": "suv",
+      "mileage": "100000",
+      "price": "4000000"
+    },
+    {
+      "brand": "AUDI",
+      "model": "ALLROAD",
+      "year": "2022-06-13",
+      "body": "suv",
+      "mileage": "100000",
+      "price": "4000000"
+    },
+    {
+      "brand": "AUDI",
+      "model": "ALLROAD",
+      "year": "2022-04-13",
+      "body": "suv",
+      "mileage": "100000",
+      "price": "5000000"
+    },
+    {
+      "brand": "AUDI",
+      "model": "TT",
+      "year": "2022-11-21",
+      "body": "coupe",
+      "mileage": "100000",
+      "price": "6454455"
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "taos",
+      "year": "2022-03-18",
+      "body": "suv",
+      "mileage": "100000",
+      "price": "5000000"
+    },
+    {
+      "brand": "Volkswagen",
+      "model": "polo",
+      "year": "2022-03-18",
+      "body": "suv",
+      "mileage": "100000",
+      "price": "6565678"
+    }
+  ]
+}

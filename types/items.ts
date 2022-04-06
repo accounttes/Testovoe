@@ -1,14 +1,14 @@
-import { ItemInterface } from '../pages/delete';
+import { ItemInterface } from "../pages/delete";
 
 export interface ItemsState {
   users: { items: any[] };
 }
 
 export enum ItemsActionTypes {
-  SET_ITEMS = 'SET_ITEMS',
-  ADD_ITEM = 'ADD_ITEM',
-  REMOVE__ITEM = 'REMOVE__ITEM',
-  SEARCH__ITEM = 'SEARCH__ITEM',
+  SET_ITEMS = "SET_ITEMS",
+  ADD_ITEM = "ADD_ITEM",
+  REMOVE__ITEM = "REMOVE__ITEM",
+  FILTER__ITEM = "FILTER__ITEM",
 }
 
 interface SetItemsAction {
@@ -24,9 +24,13 @@ interface RemoveItemAction {
   payload: number;
 }
 
-interface SearchItemAction {
-  type: ItemsActionTypes.SEARCH__ITEM;
-  payload: string | any[];
+interface FilterItemAction {
+  type: ItemsActionTypes.FILTER__ITEM;
+  payload: any;
 }
 
-export type ItemAction = SetItemsAction | AddItemAction | RemoveItemAction | SearchItemAction;
+export type ItemAction =
+  | SetItemsAction
+  | AddItemAction
+  | RemoveItemAction
+  | FilterItemAction;

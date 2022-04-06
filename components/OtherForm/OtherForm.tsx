@@ -48,6 +48,13 @@ export const OtherForm: React.FC<OtherFormProps> = ({
     setOptions(optionsData);
   }
 
+  const [first, setfirst] = React.useState<any>('{}');
+  const data = JSON.parse(first);
+
+  React.useEffect(() => {
+    setfirst(localStorage.getItem('data'));
+  }, []);
+
   return (
     <>
       {optionsData &&

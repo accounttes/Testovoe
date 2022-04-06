@@ -1,20 +1,20 @@
+import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { Container, Breadcrumb, Carousel } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setItems } from '../store/actions/items';
 import A from '../components/A';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useTypedSelector } from '../store/hooks/useTypesSelector';
 import { ItemsState } from '../types/items';
 import { ItemInterface } from './delete';
 import { Context } from 'next-redux-wrapper';
+import axios from 'axios';
 
 const Home: NextPage = ({ users }: any): React.ReactElement => {
-
+  const axios = require('axios').default;
   const items = useTypedSelector((state: ItemsState) => state.users.items);
-
   const dispatch = useDispatch();
 
   if (items.length < 10) {
@@ -81,7 +81,7 @@ const Home: NextPage = ({ users }: any): React.ReactElement => {
 };
 
 export async function getStaticProps(context: Context) {
-  const response = await fetch(`https://jsonplaceholder.typicode.com/users`);
+  const response = await fetch(`http://localhost:3001/items`);
   const users = await response.json();
 
   return {

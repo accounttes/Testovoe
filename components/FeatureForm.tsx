@@ -22,6 +22,13 @@ export const FeatureForm: React.FC<FeatureFormProps> = ({
   errors,
   register,
 }: FeatureFormProps): React.ReactElement => {
+  const [first, setfirst] = React.useState<any>('{}');
+  const data = JSON.parse(first);
+
+  React.useEffect(() => {
+    setfirst(localStorage.getItem('data'));
+  }, []);
+
   return (
     <div style={{ marginTop: '40px' }}>
       <label className="label">
@@ -97,6 +104,11 @@ export const FeatureForm: React.FC<FeatureFormProps> = ({
       <label className="label">
         Пробег
         <input
+          defaultValue={
+            data.technical_characteristics === undefined
+              ? null
+              : data.technical_characteristics.mileage
+          }
           className="input"
           placeholder=""
           readOnly={false}

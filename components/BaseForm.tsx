@@ -1,5 +1,4 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect } from 'react';
 import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form';
 import { ErrorsFormProps } from './types/ErrorsType';
 
@@ -23,6 +22,13 @@ export const BaseForm: React.FC<BaseFormProps> = ({
   errors,
   register,
 }: BaseFormProps): React.ReactElement => {
+  const [first, setfirst] = React.useState<any>('{}');
+  const data = JSON.parse(first);
+
+  React.useEffect(() => {
+    setfirst(localStorage.getItem('data'));
+  }, []);
+
   return (
     <>
       <label className="label">
