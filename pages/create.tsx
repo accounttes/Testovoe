@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { SyntheticEvent, useEffect } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addItem } from "../store/actions/items";
@@ -80,6 +80,8 @@ export default function Create(): React.ReactElement {
   }, []);
 
   const onSubmit = (data: DataInterface) => {
+    delete data["technical_characteristics"];
+    console.log(data, "самая первая дата");
     const file: any = data.image[0];
 
     const myReader: any = new FileReader();
@@ -98,7 +100,7 @@ export default function Create(): React.ReactElement {
     myReader.readAsDataURL(file);
 
     setAdded(true);
-    console.log(data);
+    console.log(data, "data");
 
     axios({
       method: "post",

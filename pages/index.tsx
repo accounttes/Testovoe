@@ -17,7 +17,6 @@ const Home: NextPage = ({ users }): React.ReactElement => {
   const axios = require("axios").default;
   const items = useTypedSelector((state: ItemsState) => state.users.items);
   const dispatch = useDispatch();
-  console.log(users, "users");
 
   if (items.length < 10) {
     dispatch(setItems(users));

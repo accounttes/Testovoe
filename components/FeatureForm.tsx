@@ -111,11 +111,6 @@ export const FeatureForm: React.FC<FeatureFormProps> = ({
       <label className="label">
         Пробег
         <input
-          defaultValue={
-            data?.technical_characteristics === undefined
-              ? null
-              : data.technical_characteristics.mileage
-          }
           className="input"
           placeholder=""
           readOnly={false}

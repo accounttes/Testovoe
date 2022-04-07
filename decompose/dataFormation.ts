@@ -41,7 +41,6 @@ export const dataFormation = (
   options: Array<OptionInterface>,
   optionNames: any[]
 ) => {
-  console.log(options, "OPTIONSSSS");
   data["id"] = Math.random().toString(16).slice(2);
 
   data["image"] = base64;
