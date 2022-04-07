@@ -112,7 +112,7 @@ export const FeatureForm: React.FC<FeatureFormProps> = ({
         Пробег
         <input
           defaultValue={
-            data.technical_characteristics === undefined
+            data?.technical_characteristics === undefined
               ? null
               : data.technical_characteristics.mileage
           }
