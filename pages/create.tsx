@@ -72,7 +72,7 @@ export default function Create(): React.ReactElement {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/items")
+      .get("https://jsonplaceholder.typicode.com/posts")
       .then((resp: Response<Array<OptionNameInterface>>) =>
         setOptionNames(resp.data)
       )
@@ -99,16 +99,15 @@ export default function Create(): React.ReactElement {
 
     setAdded(true);
     console.log(data);
-    alert("Пошел POST запрос");
 
-    // axios({
-    //   method: 'post',
-    //   url: 'https://jsonplaceholder.typicode.com/posts',
-    //   data: JSON.stringify(data),
-    //   headers: {
-    //     'Content-type': 'application/json',
-    //   },
-    // }).then(({ data }: IData) => console.log('Ответ от сервера', data));
+    axios({
+      method: "post",
+      url: "https://jsonplaceholder.typicode.com/posts",
+      data: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json",
+      },
+    }).then(({ data }: IData) => data);
   }; // your form submit function which will invoke after successful validation
 
   return (
