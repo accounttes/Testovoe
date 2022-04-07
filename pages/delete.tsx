@@ -9,6 +9,7 @@ import { useTypedSelector } from "../store/hooks/useTypesSelector";
 import { ItemsState } from "../types/items";
 
 export interface ItemInterface {
+  body: any;
   address: Array<any>;
   company: Array<any>;
   email: string;
@@ -40,10 +41,10 @@ export default function Delete(): React.ReactElement {
         {items &&
           items.map((item, index) => (
             <ListGroup.Item key={index}>
-              {item.username}
+              {item.brand}
               <Button
-                onClick={handleItems}
-                data-id={item.id}
+                onClick={(e) => handleItems(e)}
+                data-id={item.model}
                 style={{ marginLeft: "20px" }}
                 variant="outline-danger"
               >

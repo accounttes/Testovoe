@@ -36,11 +36,11 @@ export default function Create(): React.ReactElement {
   const [optionNames, setOptionNames] = useState<OptionNameInterface[]>([]);
   const [options, setOptions] = useState<OptionInterface[]>([]);
   const [send, setSend] = useState(false);
-  const [first, setfirst] = React.useState<DataInterface>(null);
+  const [first, setfirst] = useState<string>("{}");
   const dataL = JSON.parse(first);
 
   React.useEffect(() => {
-    setfirst(localStorage.getItem("data"));
+    setfirst(localStorage.getItem("data") || "{}");
   }, [dataL]);
 
   React.useEffect(() => {
@@ -50,6 +50,7 @@ export default function Create(): React.ReactElement {
       }
       setValue(key, dataL[key]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [first]);
 
   interface Response<T> {
@@ -77,15 +78,14 @@ export default function Create(): React.ReactElement {
         setOptionNames(resp.data)
       )
       .catch((err: Error) => console.log(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onSubmit = (data: DataInterface) => {
     delete data["technical_characteristics"];
-    console.log(data, "самая первая дата");
     const file: any = data.image[0];
 
     const myReader: any = new FileReader();
-    console.log(myReader, "meReader");
     myReader.onloadend = (e: SyntheticEvent<HTMLDivElement>) => {
       dataFormation(
         data,

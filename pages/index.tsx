@@ -7,13 +7,16 @@ import { setItems } from "../store/actions/items";
 import A from "../components/A";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useTypedSelector } from "../store/hooks/useTypesSelector";
-import { ItemsState } from "../types/items";
-import { ItemInterface } from "./delete";
+import { ItemInterface, ItemsState } from "../types/items";
 import { Context } from "next-redux-wrapper";
 import axios from "axios";
 import { DataInterface } from "../decompose/dataFormation";
 
-const Home: NextPage = ({ users }): React.ReactElement => {
+interface HomeProps {
+  users: Array<ItemInterface>;
+}
+
+const Home: NextPage<HomeProps> = ({ users }): React.ReactElement => {
   const axios = require("axios").default;
   const items = useTypedSelector((state: ItemsState) => state.users.items);
   const dispatch = useDispatch();

@@ -1,8 +1,20 @@
 import { DataInterface } from "./../decompose/dataFormation";
-import { ItemInterface } from "../pages/delete";
+
+export interface IUsers {
+  items: Array<ItemInterface>;
+}
 
 export interface ItemsState {
-  users: { items: Array<DataInterface> };
+  users: IUsers;
+}
+
+export interface ItemInterface {
+  body: string;
+  brand: string;
+  mileage: string;
+  model: string;
+  price: string;
+  year: string;
 }
 
 export enum ItemsActionTypes {
