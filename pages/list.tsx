@@ -1,13 +1,15 @@
-import { Table } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import A from '../components/A';
-import Head from 'next/head';
-import { useTypedSelector } from '../store/hooks/useTypesSelector';
-import { ItemsState } from '../types/items';
-import { ItemInterface } from './delete';
+import { Table } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import A from "../components/A";
+import Head from "next/head";
+import { useTypedSelector } from "../store/hooks/useTypesSelector";
+import { ItemsState } from "../types/items";
+import { ItemInterface } from "./delete";
 
 export default function List(): React.ReactElement {
-  const items: Array<ItemInterface> = useTypedSelector((state: ItemsState) => state.users.items);
+  const items: Array<ItemInterface> = useTypedSelector(
+    (state: ItemsState) => state.users.items
+  );
 
   return (
     <>

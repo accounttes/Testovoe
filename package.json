@@ -10,6 +10,7 @@
     "json-server": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
+    "@types/React": "npm:@types/react@^17.0.43",
     "@types/react-bootstrap-range-slider": "^1.2.1",
     "axios": "^0.26.1",
     "bootstrap": "^5.1.3",

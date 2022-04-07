@@ -1,5 +1,5 @@
-import React from 'react';
-import { OptionInterface } from '../components/OtherForm/OtherForm';
+import React from "react";
+import { OptionInterface } from "../components/OtherForm/OtherForm";
 
 export interface OptionNameInterface {
   completed: boolean;
@@ -39,14 +39,14 @@ export const dataFormation = (
   base64: string,
   form: boolean,
   options: Array<OptionInterface>,
-  optionNames: any[],
+  optionNames: any[]
 ) => {
-  data['id'] = Math.random().toString(16).slice(2);
+  data["id"] = Math.random().toString(16).slice(2);
 
-  data['image'] = base64;
+  data["image"] = base64;
 
   if (form) {
-    data['technical_characteristics'] = {
+    data["technical_characteristics"] = {
       car__id: Math.random().toString(16).slice(2),
       brand: data.brand!,
       model: data.model!,
@@ -63,7 +63,7 @@ export const dataFormation = (
   delete data.body;
   delete data.mileage;
 
-  data['options'] = Object.create({});
+  data["options"] = Object.create({});
 
   options &&
     options.map((option, index) => {
@@ -71,13 +71,13 @@ export const dataFormation = (
     });
 
   for (let key in data.options) {
-    if (data.options[key] === '') {
+    if (data.options[key] === "") {
       delete data.options[key];
     }
   }
 
-  if (Object.keys(data['options']).length == 0) {
-    delete data['options'];
+  if (Object.keys(data["options"]).length == 0) {
+    delete data["options"];
   }
 
   return data;

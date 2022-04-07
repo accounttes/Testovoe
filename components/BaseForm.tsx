@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { RegisterOptions, UseFormRegisterReturn } from 'react-hook-form';
-import { ErrorsFormProps } from './types/ErrorsType';
+import React, { useEffect } from "react";
+import { RegisterOptions, UseFormRegisterReturn } from "react-hook-form";
+import { DataInterface } from "../decompose/dataFormation";
+import { ErrorsFormProps } from "./types/ErrorsType";
 
 interface BaseFormProps {
   errors: {
@@ -22,11 +23,11 @@ export const BaseForm: React.FC<BaseFormProps> = ({
   errors,
   register,
 }: BaseFormProps): React.ReactElement => {
-  const [first, setfirst] = React.useState<any>('{}');
+  const [first, setfirst] = React.useState<DataInterface>(null);
   const data = JSON.parse(first);
 
   React.useEffect(() => {
-    setfirst(localStorage.getItem('data'));
+    setfirst(localStorage.getItem("data"));
   }, []);
 
   return (
@@ -37,14 +38,16 @@ export const BaseForm: React.FC<BaseFormProps> = ({
           className="input"
           placeholder="Введите название"
           readOnly={false}
-          {...register('name', {
-            required: 'Поле обязательно к заполнению',
+          {...register("name", {
+            required: "Поле обязательно к заполнению",
           })}
         />
       </label>
       <div>
         {errors?.name && (
-          <p className="errorMessage">{errors?.name?.message || 'Что-то заполнено неверно!'}</p>
+          <p className="errorMessage">
+            {errors?.name?.message || "Что-то заполнено неверно!"}
+          </p>
         )}
       </div>
 
@@ -54,15 +57,15 @@ export const BaseForm: React.FC<BaseFormProps> = ({
           className="input"
           placeholder="Введите описание"
           readOnly={false}
-          {...register('description', {
-            required: 'Поле обязательно к заполнению',
+          {...register("description", {
+            required: "Поле обязательно к заполнению",
           })}
         />
       </label>
       <div>
         {errors?.description && (
           <p className="errorMessage">
-            {errors?.description?.message || 'Что-то заполнено неверно!'}
+            {errors?.description?.message || "Что-то заполнено неверно!"}
           </p>
         )}
       </div>
@@ -73,14 +76,17 @@ export const BaseForm: React.FC<BaseFormProps> = ({
           className="input"
           placeholder="Введите цену"
           readOnly={false}
-          {...register('price', {
-            required: 'Поле обязательно к заполнению',
+          {...register("price", {
+            required: "Поле обязательно к заполнению",
           })}
         />
       </label>
       <div>
         {errors?.price && (
-          <p className="errorMessage"> {errors?.price?.message || 'Что-то заполнено неверно!'}</p>
+          <p className="errorMessage">
+            {" "}
+            {errors?.price?.message || "Что-то заполнено неверно!"}
+          </p>
         )}
       </div>
 
@@ -89,13 +95,16 @@ export const BaseForm: React.FC<BaseFormProps> = ({
         <input
           type="file"
           accept="image/png, image/gif, image/jpeg, image/jpg"
-          {...register('image', {
-            required: 'Выберите фото',
-          })}></input>
+          {...register("image", {
+            required: "Выберите фото",
+          })}
+        ></input>
       </label>
       <div>
         {errors?.image && (
-          <p className="errorMessage">{errors?.image?.message || 'Что-то заполнено неверно!'}</p>
+          <p className="errorMessage">
+            {errors?.image?.message || "Что-то заполнено неверно!"}
+          </p>
         )}
       </div>
 
@@ -105,14 +114,16 @@ export const BaseForm: React.FC<BaseFormProps> = ({
           className="input"
           placeholder="Введите контакты"
           readOnly={false}
-          {...register('contacts', {
-            required: 'Поле обязательно к заполнению',
+          {...register("contacts", {
+            required: "Поле обязательно к заполнению",
           })}
         />
       </label>
       <div>
         {errors?.contacts && (
-          <p className="errorMessage">{errors?.contacts?.message || 'Что-то заполнено неверно!'}</p>
+          <p className="errorMessage">
+            {errors?.contacts?.message || "Что-то заполнено неверно!"}
+          </p>
         )}
       </div>
     </>

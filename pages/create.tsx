@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { addItem } from '../store/actions/items';
-import { useForm } from 'react-hook-form';
-import { useState } from 'react';
-import A from '../components/A';
-import { BaseForm } from '../components/BaseForm';
-import { FeatureForm } from '../components/FeatureForm';
-import { OtherForm } from '../components/OtherForm/OtherForm';
-import Head from 'next/head';
-import { Button } from 'react-bootstrap';
-import { dataFormation, DataInterface, OptionNameInterface } from '../decompose/dataFormation';
-import { OptionInterface } from '../components/OtherForm/OtherForm';
-
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/actions/items";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import A from "../components/A";
+import { BaseForm } from "../components/BaseForm";
+import { FeatureForm } from "../components/FeatureForm";
+import { OtherForm } from "../components/OtherForm/OtherForm";
+import Head from "next/head";
+import { Button } from "react-bootstrap";
+import {
+  dataFormation,
+  DataInterface,
+  OptionNameInterface,
+} from "../decompose/dataFormation";
+import { OptionInterface } from "../components/OtherForm/OtherForm";
 
 interface IData {
   data: {
@@ -26,29 +29,28 @@ interface IData {
 }
 
 export default function Create(): React.ReactElement {
-  const axios = require('axios').default;
+  const axios = require("axios").default;
   const dispatch = useDispatch();
   const [added, setAdded] = useState(false);
   const [form, setForm] = useState(false);
   const [optionNames, setOptionNames] = useState<OptionNameInterface[]>([]);
   const [options, setOptions] = useState<OptionInterface[]>([]);
   const [send, setSend] = useState(false);
-  const [first, setfirst] = React.useState<any>('{}');
+  const [first, setfirst] = React.useState<DataInterface>(null);
   const dataL = JSON.parse(first);
 
   React.useEffect(() => {
-    setfirst(localStorage.getItem('data'));
+    setfirst(localStorage.getItem("data"));
   }, [dataL]);
 
   React.useEffect(() => {
     for (let key in dataL) {
-      if (key === 'image') {
+      if (key === "image") {
         continue;
       }
-      setValue(key, dataL[key])
+      setValue(key, dataL[key]);
     }
   }, [first]);
-
 
   interface Response<T> {
     status: string;
@@ -65,13 +67,15 @@ export default function Create(): React.ReactElement {
     formState: { errors },
     setValue,
   } = useForm({
-    mode: 'onSubmit',
+    mode: "onSubmit",
   });
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/items')
-      .then((resp: Response<Array<OptionNameInterface>>) => setOptionNames(resp.data))
+      .get("http://localhost:3001/items")
+      .then((resp: Response<Array<OptionNameInterface>>) =>
+        setOptionNames(resp.data)
+      )
       .catch((err: Error) => console.log(err));
   }, []);
 
@@ -79,18 +83,23 @@ export default function Create(): React.ReactElement {
     const file: any = data.image[0];
 
     const myReader: any = new FileReader();
-    myReader.onloadend = (e: any) => {
-      dataFormation(data, myReader.result.toString(), form, options, optionNames);
-      localStorage.setItem('data', JSON.stringify(data));
-      dispatch(addItem(data))
-
+    console.log(myReader, "meReader");
+    myReader.onloadend = (e: SyntheticEvent<HTMLDivElement>) => {
+      dataFormation(
+        data,
+        myReader.result.toString(),
+        form,
+        options,
+        optionNames
+      );
+      localStorage.setItem("data", JSON.stringify(data));
+      dispatch(addItem(data));
     };
     myReader.readAsDataURL(file);
 
     setAdded(true);
-    console.log(data)
-    alert('Пошел POST запрос');
-
+    console.log(data);
+    alert("Пошел POST запрос");
 
     // axios({
     //   method: 'post',
@@ -104,17 +113,17 @@ export default function Create(): React.ReactElement {
 
   return (
     <>
-      <div className={form ? 'create__container' : ''}>
+      <div className={form ? "create__container" : ""}>
         <Head>
           <meta></meta>
           <title>Добавление пользователя</title>
         </Head>
-        
+
         <A href="/" text="Назад" />
         <form onSubmit={handleSubmit(onSubmit as any)} className="form">
           <div>
             <div>
-              <h2 style={{ marginBottom: '20px' }}>Базовые данные</h2>
+              <h2 style={{ marginBottom: "20px" }}>Базовые данные</h2>
               <BaseForm errors={errors} register={register}></BaseForm>
             </div>
 
@@ -124,29 +133,42 @@ export default function Create(): React.ReactElement {
                   className="button"
                   type="button"
                   onClick={() => handleForm(true)}
-                  variant="outline-primary">
+                  variant="outline-primary"
+                >
                   Добавить технические характеристики
                 </Button>
               )}
               {form && (
                 <Button
                   className="button"
-                  style={{ background: '#ff033e' }}
+                  style={{ background: "#ff033e" }}
                   type="button"
-                  onClick={() => handleForm(false)}>
+                  onClick={() => handleForm(false)}
+                >
                   Отменить добавление технических характеристик
                 </Button>
               )}
-              {form && <FeatureForm errors={errors} register={register}></FeatureForm>}
+              {form && (
+                <FeatureForm errors={errors} register={register}></FeatureForm>
+              )}
             </div>
 
-            <div style={{ marginTop: '20px' }}>
-              <h2 style={{ marginLeft: '20px' }}>Доп. опции</h2>
+            <div style={{ marginTop: "20px" }}>
+              <h2 style={{ marginLeft: "20px" }}>Доп. опции</h2>
 
-              <OtherForm errors={errors} options={options} setOptions={setOptions} send={send} />
+              <OtherForm
+                errors={errors}
+                options={options}
+                setOptions={setOptions}
+                send={send}
+              />
             </div>
           </div>
-          <input className="button" type="submit" onClick={() => setSend(!send)} />
+          <input
+            className="button"
+            type="submit"
+            onClick={() => setSend(!send)}
+          />
         </form>
       </div>
     </>

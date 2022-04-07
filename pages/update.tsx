@@ -20,8 +20,6 @@ export default function Update({ users }: IUsers): React.ReactElement {
     (state: ItemsState) => state.users.defaultItems
   );
 
-  const prov: any = useTypedSelector((state: ItemsState) => state.users);
-
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
   const [rangeVal, setRangeVal] = useState<number>(8);
@@ -30,21 +28,6 @@ export default function Update({ users }: IUsers): React.ReactElement {
   const [model, setModel] = useState("");
   const [year, setYear] = useState("");
   const [body, setBody] = useState("");
-
-  // function handleValue(e: React.ChangeEvent<HTMLInputElement>) {
-  //   setValue(e.target.value);
-
-  //   if (items.length === 0) {
-  //     const newContacts = users.filter(
-  //       (item) =>
-  //         item.name.toLowerCase().includes(e.target.value) ||
-  //         item.username.toLowerCase().includes(e.target.value),
-  //     );
-  //     dispatch(searchItem(newContacts));
-  //   } else {
-  //     e.target.value === '' ? dispatch(searchItem(users)) : dispatch(searchItem(e.target.value));
-  //   }
-  // }
 
   const {
     register,
@@ -66,11 +49,6 @@ export default function Update({ users }: IUsers): React.ReactElement {
       </Head>
 
       <A href="/" text="Назад" />
-      {/* <input
-        placeholder="Имя или имя пользователя"
-        value={value}
-        onChange={handleValue}
-        style={{ width: '400px' }} /> */}
       <div className="table__filter">
         <Table className="table" striped bordered hover>
           <thead>
@@ -113,15 +91,11 @@ export default function Update({ users }: IUsers): React.ReactElement {
               <label className="label">
                 Марка
                 <input
-                  className="input"
+                  className="input input__upper"
                   placeholder="Введите марку"
                   readOnly={false}
                   {...register("brand", {
                     required: "Поле обязательно к заполнению",
-                    pattern: {
-                      value: /[A-Z]/,
-                      message: "Только заглавные буквы"
-                    }
                   })}
                 />
               </label>
@@ -136,15 +110,15 @@ export default function Update({ users }: IUsers): React.ReactElement {
               <label className="label">
                 Модель
                 <input
-                  className="input"
+                  className="input input__upper"
                   placeholder="Введите модель"
                   readOnly={false}
                   {...register("model", {
                     required: "Поле обязательно к заполнению",
                     pattern: {
                       value: /[A-Z]/,
-                      message: "Только заглавные буквы"
-                    }
+                      message: "Только заглавные буквы",
+                    },
                   })}
                 />
               </label>
@@ -179,15 +153,15 @@ export default function Update({ users }: IUsers): React.ReactElement {
               <label className="label">
                 Тип кузова
                 <input
-                  className="input"
+                  className="input input__body"
                   placeholder="Введите тип кузова"
                   readOnly={false}
                   {...register("body", {
                     required: "Поле обязательно к заполнению",
                     pattern: {
                       value: /[a-z]/,
-                      message: "Только строчные буквы"
-                    }
+                      message: "Только строчные буквы",
+                    },
                   })}
                 />
               </label>

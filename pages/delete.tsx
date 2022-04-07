@@ -1,16 +1,16 @@
-import { useState } from 'React';
-import { ListGroup } from 'react-bootstrap';
-import A from '../components/A';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeItem } from '../store/actions/items';
-import Head from 'next/head';
-import { Button } from 'react-bootstrap';
-import { useTypedSelector } from '../store/hooks/useTypesSelector';
-import { ItemsState } from '../types/items';
+import { useState } from "React";
+import { ListGroup } from "react-bootstrap";
+import A from "../components/A";
+import { useSelector, useDispatch } from "react-redux";
+import { removeItem } from "../store/actions/items";
+import Head from "next/head";
+import { Button } from "react-bootstrap";
+import { useTypedSelector } from "../store/hooks/useTypesSelector";
+import { ItemsState } from "../types/items";
 
 export interface ItemInterface {
-  address: any[];
-  company: any[];
+  address: Array<any>;
+  company: Array<any>;
   email: string;
   id: number;
   name: string;
@@ -44,8 +44,9 @@ export default function Delete(): React.ReactElement {
               <Button
                 onClick={handleItems}
                 data-id={item.id}
-                style={{ marginLeft: '20px' }}
-                variant="outline-danger">
+                style={{ marginLeft: "20px" }}
+                variant="outline-danger"
+              >
                 Удалить
               </Button>
             </ListGroup.Item>

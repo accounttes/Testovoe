@@ -1,5 +1,5 @@
-import '../styles/globals.scss';
-import { wrapper } from '../store';
+import "../styles/globals.scss";
+import { wrapper } from "../store";
 
 // This default export is required in a new `pages/_app.js` file.
 const WrappedApp = function MyApp({ Component, pageProps }: any) {

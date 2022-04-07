@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import { Container, Breadcrumb, Carousel } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { setItems } from '../store/actions/items';
-import A from '../components/A';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useTypedSelector } from '../store/hooks/useTypesSelector';
-import { ItemsState } from '../types/items';
-import { ItemInterface } from './delete';
-import { Context } from 'next-redux-wrapper';
-import axios from 'axios';
+import React, { useEffect } from "react";
+import type { NextPage } from "next";
+import Head from "next/head";
+import { Container, Breadcrumb, Carousel } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { setItems } from "../store/actions/items";
+import A from "../components/A";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useTypedSelector } from "../store/hooks/useTypesSelector";
+import { ItemsState } from "../types/items";
+import { ItemInterface } from "./delete";
+import { Context } from "next-redux-wrapper";
+import axios from "axios";
+import { DataInterface } from "../decompose/dataFormation";
 
-const Home: NextPage = ({ users }: any): React.ReactElement => {
-  const axios = require('axios').default;
+const Home: NextPage = ({ users }): React.ReactElement => {
+  const axios = require("axios").default;
   const items = useTypedSelector((state: ItemsState) => state.users.items);
   const dispatch = useDispatch();
+  console.log(users, "users");
 
   if (items.length < 10) {
     dispatch(setItems(users));
@@ -32,13 +34,13 @@ const Home: NextPage = ({ users }: any): React.ReactElement => {
 
       <Container>
         <Breadcrumb className="navbar">
-          <A href={'/'} text={'Главная'}></A>
-          <A href={'/create'} text={'Создать'}></A>
-          <A href={'/update'} text={'Найти'}></A>
-          <A href={'/delete'} text={'Удалить'}></A>
-          <A href={'/view'} text={'Смотреть пользователей'}></A>
-          <A href={'/list'} text={'Список'}></A>
-          <A href={'/search'} text={'Конкретный контакт'}></A>
+          <A href={"/"} text={"Главная"}></A>
+          <A href={"/create"} text={"Создать"}></A>
+          <A href={"/update"} text={"Найти"}></A>
+          <A href={"/delete"} text={"Удалить"}></A>
+          <A href={"/view"} text={"Смотреть пользователей"}></A>
+          <A href={"/list"} text={"Список"}></A>
+          <A href={"/search"} text={"Конкретный контакт"}></A>
         </Breadcrumb>
 
         <Carousel>

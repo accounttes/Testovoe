@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useForm, useFieldArray, useWatch } from 'react-hook-form';
-import { Button } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { useForm, useFieldArray, useWatch } from "react-hook-form";
+import { Button } from "react-bootstrap";
 
-import { ErrorsFormProps } from '../types/ErrorsType';
+import { ErrorsFormProps } from "../types/ErrorsType";
+import { DataInterface } from "../../decompose/dataFormation";
 
 export interface OptionInterface {
   option__name: string;
@@ -36,23 +37,23 @@ export const OtherForm: React.FC<OtherFormProps> = ({
   const { register, handleSubmit, control } = useForm();
   const { fields, append } = useFieldArray({
     control,
-    name: 'fieldArray',
+    name: "fieldArray",
   });
 
   const optionsData: Array<OptionInterface> = useWatch({
     control,
-    name: 'fieldArray', // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
+    name: "fieldArray", // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
   });
 
   function sendOptionsData() {
     setOptions(optionsData);
   }
 
-  const [first, setfirst] = React.useState<any>('{}');
+  const [first, setfirst] = React.useState<DataInterface>(null);
   const data = JSON.parse(first);
 
   React.useEffect(() => {
-    setfirst(localStorage.getItem('data'));
+    setfirst(localStorage.getItem("data"));
   }, []);
 
   return (
@@ -63,7 +64,7 @@ export const OtherForm: React.FC<OtherFormProps> = ({
             <input
               onInput={() => sendOptionsData()}
               className="input"
-              style={{ marginLeft: '15px' }}
+              style={{ marginLeft: "15px" }}
               {...register(`fieldArray.${index}.name`)}
               key={index}
               placeholder="Введите опцию"
@@ -76,9 +77,10 @@ export const OtherForm: React.FC<OtherFormProps> = ({
         type="button"
         onClick={() =>
           append({
-            option__name: '',
+            option__name: "",
           })
-        }>
+        }
+      >
         Еще
       </Button>
     </>
